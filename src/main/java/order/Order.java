@@ -1,4 +1,4 @@
-package Order;
+package order;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import java.text.SimpleDateFormat;

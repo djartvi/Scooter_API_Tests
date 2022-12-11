@@ -1,10 +1,10 @@
-package Courier;
+package courier;
 
-import Client.Extract;
+import client.Extract;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -12,16 +12,16 @@ import org.junit.runners.Parameterized;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class CourierCreateBodyTest {
+public class CourierLoginBodyTest {
 
     private final String json;
-    private int responseCode;
+    private static ValidatableResponse login;
 
-    private static final Courier courier = Courier.randomCourier();
-    private final CourierClient courierClient = new CourierClient();
-    private final Extract extract = new Extract();
+    private final static Courier courier = Courier.randomCourier();
+    private final static CourierClient courierClient = new CourierClient();
+    private final static Extract extract = new Extract();
 
-    public CourierCreateBodyTest(String json) {
+    public CourierLoginBodyTest(String json) {
         this.json = json;
     }
 
@@ -41,23 +41,23 @@ public class CourierCreateBodyTest {
 
     @Test
     @DisplayName("Check possibility of creating a courier without required json values")
-    @Description("Checking with random alphabetic parameters for JSON body")
-    public void createCourierWithoutRequiredJSONBody() {
+    @Description("Checking with random alphabetic parameters")
+    public void loginOfCourierWithoutRequiredJSONBody() {
 
-        ValidatableResponse response = courierClient.createCourierWithCustomJSONBody(json);
+        courierClient.create(courier);
 
-        responseCode = extract.responseCode(response);
-        String actual = extract.responseMessage(response);
+        login = courierClient.login(json);
+
+        int responseCode = extract.responseCode(login);
+        String actual = extract.responseMessage(login);
 
         assertEquals(400, responseCode);
-        assertEquals("Недостаточно данных для создания учетной записи", actual);
+        assertEquals("Недостаточно данных для входа", actual);
     }
 
-    @After
-    public void deleteCourier() {
-        if (responseCode == 201) {
-            ValidatableResponse login = courierClient.login(json);
-            courierClient.deleteCourier(extract.getIntValue(login, "id"));
-        }
+    @AfterClass
+    public static void deleteCourier() {
+        login = courierClient.login(courier.getLogin(), courier.getPassword());
+        courierClient.deleteCourier(extract.getIntValue(login, "id"));
     }
 }

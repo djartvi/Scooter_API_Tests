@@ -1,6 +1,6 @@
-package Order;
+package order;
 
-import Client.RestClient;
+import client.RestClient;
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 

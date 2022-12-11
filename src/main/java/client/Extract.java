@@ -1,7 +1,7 @@
-package Client;
+package client;
 
-import Order.OrderDetailsResponse;
-import Order.OrdersResponse;
+import order.OrderDetailsResponse;
+import order.OrdersResponse;
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 

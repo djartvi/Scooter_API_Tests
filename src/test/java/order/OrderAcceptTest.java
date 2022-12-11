@@ -1,7 +1,7 @@
-package Order;
+package order;
 
-import Client.Extract;
-import Courier.*;
+import client.Extract;
+import courier.*;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
