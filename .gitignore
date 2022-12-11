@@ -1,0 +1,10 @@
+.idea
+.allure
+.DS_Store
+/target/test-classes/
+/target/surefire-reports/
+/target/maven-status/
+/target/generated-test-sources/
+/target/generated-sources/
+/target/classes/
+/src/main/resources/
