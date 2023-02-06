@@ -1,5 +1,6 @@
 package client;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
@@ -12,6 +13,7 @@ public class RestClient {
     protected RequestSpecification spec() {
         return given()
                 .contentType(ContentType.JSON)
-                .baseUri(BASE_URI);
+                .baseUri(BASE_URI)
+                .filter(new AllureRestAssured());
     }
 }

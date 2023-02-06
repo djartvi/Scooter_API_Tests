@@ -57,7 +57,7 @@ public class CourierCreateBodyTest {
     public void deleteCourier() {
         if (responseCode == 201) {
             ValidatableResponse login = courierClient.login(json);
-            courierClient.deleteCourier(extract.getIntValue(login, "id"));
+            courierClient.deleteCourier(extract.id(login));
         }
     }
 }

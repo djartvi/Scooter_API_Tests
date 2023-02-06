@@ -26,7 +26,7 @@ public class CourierDeleteTest {
         courierClient.create(courier);
         ValidatableResponse login = courierClient.login(courier.getLogin(), courier.getPassword());
 
-        courierId = extract.getIntValue(login, "id");
+        courierId = extract.id(login);
 
         ValidatableResponse deleteCourier = courierClient.deleteCourier(courierId);
 
@@ -44,7 +44,7 @@ public class CourierDeleteTest {
         courierClient.create(courier);
         ValidatableResponse login = courierClient.login(courier.getLogin(), courier.getPassword());
 
-        courierId = extract.getIntValue(login, "id");
+        courierId = extract.id(login);
 
         ValidatableResponse deleteCourier = courierClient.deleteCourierWithoutId(courierId);
 
@@ -64,7 +64,7 @@ public class CourierDeleteTest {
         courierClient.create(courier);
         ValidatableResponse login = courierClient.login(courier.getLogin(), courier.getPassword());
 
-        courierId = extract.getIntValue(login, "id");
+        courierId = extract.id(login);
 
         courierClient.deleteCourier(courierId);
 

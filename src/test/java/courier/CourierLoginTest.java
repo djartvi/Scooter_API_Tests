@@ -29,7 +29,7 @@ public class CourierLoginTest {
         ValidatableResponse login = courierClient.login(courier.getLogin(), courier.getPassword());
 
         responseCode = extract.responseCode(login);
-        courierId = extract.getIntValue(login, "id");
+        courierId = extract.id(login);
 
         assertEquals(200, responseCode);
         assertTrue(courierId > 0);

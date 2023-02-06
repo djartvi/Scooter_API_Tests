@@ -41,7 +41,7 @@ public class OrderCreateTest {
         ValidatableResponse response = orderClient.create(order);
 
         int responseCode = extract.responseCode(response);
-        int orderTrack = extract.getIntValue(response, "track");
+        int orderTrack = extract.track(response);
 
         assertEquals(201, responseCode);
         assertTrue(orderTrack > 0);
