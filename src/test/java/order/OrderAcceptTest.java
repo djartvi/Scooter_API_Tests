@@ -5,6 +5,7 @@ import courier.*;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
+import lombok.AllArgsConstructor;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+@AllArgsConstructor
 @RunWith(Parameterized.class)
 public class OrderAcceptTest {
 
@@ -34,12 +36,6 @@ public class OrderAcceptTest {
     private static final ValidatableResponse orderDetails = orderClient.getOrderDetails(orderTrack);
     private static final int defaultOrderId = extract.getIntValue(orderDetails, "order.id");
 
-    public OrderAcceptTest(String orderId, String courierId, int expectedCode) {
-        this.orderId = orderId;
-        this.courierId = courierId;
-        this.expectedCode = expectedCode;
-    }
-
     @Parameterized.Parameters(name = "order {0}, courier {1}, code {2}")
     public static Object[][] endpointParameters() {
         return new Object[][] {
@@ -52,8 +48,8 @@ public class OrderAcceptTest {
     }
 
     @Test
-    @DisplayName("Check possibility of creating a courier without required json values")
-    @Description("Checking with random alphabetic parameters")
+    @DisplayName("Check possibility of creating a courier")
+    @Description("Checking with random alphabetic json values")
     public void acceptOrderWithRequiredEndpointParameters() {
 
         ValidatableResponse acceptOrder = orderClient.acceptOrder(orderId, courierId);

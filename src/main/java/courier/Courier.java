@@ -1,18 +1,16 @@
 package courier;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.apache.commons.lang3.RandomStringUtils;
 
+@AllArgsConstructor
+@Getter
 public class Courier {
 
     private final String login;
     private final String password;
     private final String firstName;
-
-    public Courier(String login, String password, String firstName) {
-        this.login = login;
-        this.password = password;
-        this.firstName = firstName;
-    }
 
     public static Courier randomCourier() {
         String login = RandomStringUtils.randomAlphanumeric(5);
@@ -21,17 +19,4 @@ public class Courier {
 
         return new Courier(login, password, firstname);
     }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
 }
