@@ -58,6 +58,6 @@ public class CourierLoginBodyTest {
     @AfterClass
     public static void deleteCourier() {
         login = courierClient.login(courier.getLogin(), courier.getPassword());
-        courierClient.deleteCourier(extract.getIntValue(login, "id"));
+        courierClient.deleteCourier(extract.id(login));
     }
 }

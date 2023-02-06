@@ -14,7 +14,7 @@ public class Extract {
                 .statusCode();
     }
 
-    @Step("Check response text")
+    @Step("Extract response text")
     public String responseMessage(ValidatableResponse response) {
         return response
                 .extract()
@@ -28,22 +28,36 @@ public class Extract {
                 .path("ok");
     }
 
-    @Step("Get int value by key")
-    public int getIntValue(ValidatableResponse response, String key) {
+    @Step("Extract Id")
+    public int id(ValidatableResponse response) {
         return response
                 .extract()
-                .path(key);
+                .path("id");
+    }
+
+    @Step("Extract track")
+    public int track(ValidatableResponse response) {
+        return response
+                .extract()
+                .path("track");
+    }
+
+    @Step("Extract id of the order")
+    public int orderId(ValidatableResponse response) {
+        return response
+                .extract()
+                .path("order.id");
     }
 
     @Step("Get list of orders")
-    public OrdersResponse getOrdersResponseBody(ValidatableResponse response) {
+    public OrdersResponse ordersResponseBody(ValidatableResponse response) {
         return response
                 .extract()
                 .body().as(OrdersResponse.class);
     }
 
     @Step("Get details of order")
-    public OrderDetailsResponse getOrderDetailsBody(ValidatableResponse response) {
+    public OrderDetailsResponse orderDetailsBody(ValidatableResponse response) {
         return response
                 .extract()
                 .body().as(OrderDetailsResponse.class);

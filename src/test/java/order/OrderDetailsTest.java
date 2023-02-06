@@ -24,12 +24,12 @@ public class OrderDetailsTest {
 
         ValidatableResponse createOrder = orderClient.create(order);
 
-        int orderTrack = extract.getIntValue(createOrder, "track");
+        int orderTrack = extract.track(createOrder);
 
         ValidatableResponse ordersDetails = orderClient.getOrderDetails(orderTrack);
 
         responseCode = extract.responseCode(ordersDetails);
-        OrderDetailsResponse orderDetailsResponse = extract.getOrderDetailsBody(ordersDetails);
+        OrderDetailsResponse orderDetailsResponse = extract.orderDetailsBody(ordersDetails);
 
         assertEquals(200, responseCode);
         assertEquals(orderTrack, orderDetailsResponse.getOrders().getTrack());

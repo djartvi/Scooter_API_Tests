@@ -22,7 +22,7 @@ public class OrdersListTest {
         ValidatableResponse ordersList = orderClient.getOrdersList();
 
         int responseCode = extract.responseCode(ordersList);
-        OrdersResponse orderResponse = extract.getOrdersResponseBody(ordersList);
+        OrdersResponse orderResponse = extract.ordersResponseBody(ordersList);
 
         assertEquals(200, responseCode);
         assertTrue(orderResponse.getOrders().size() > 0);

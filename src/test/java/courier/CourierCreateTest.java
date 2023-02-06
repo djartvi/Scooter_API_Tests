@@ -50,7 +50,7 @@ public class CourierCreateTest {
     @After
     public void deleteCourier() {
         ValidatableResponse login = courierClient.login(courier.getLogin(), courier.getPassword());
-        courierClient.deleteCourier(extract.getIntValue(login, "id"));
+        courierClient.deleteCourier(extract.id(login));
     }
 
 }

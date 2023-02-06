@@ -5,6 +5,7 @@ import courier.*;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
+import lombok.AllArgsConstructor;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+@AllArgsConstructor
 @RunWith(Parameterized.class)
 public class OrderAcceptTest {
 
@@ -22,23 +24,18 @@ public class OrderAcceptTest {
     private static final Courier courier = Courier.randomCourier();
     private static final Extract extract = new Extract();
     private static final OrderClient orderClient = new OrderClient();
-    private static final Order order = Order.randomOrder(List.of(""));
-
     private static final CourierClient courierClient = new CourierClient();
+
     private static final ValidatableResponse create = courierClient.create(courier);
     private static final ValidatableResponse login = courierClient.login(courier.getLogin(), courier.getPassword());
-    private static final int defaultCourierId = extract.getIntValue(login, "id");
+    private static final int defaultCourierId = extract.id(login);
 
+    private static final Order order = Order.randomOrder(List.of(""));
     private static final ValidatableResponse createOrder = orderClient.create(order);
-    private static final int orderTrack = extract.getIntValue(createOrder, "track");
-    private static final ValidatableResponse orderDetails = orderClient.getOrderDetails(orderTrack);
-    private static final int defaultOrderId = extract.getIntValue(orderDetails, "order.id");
+    private static final int orderTrack = extract.track(createOrder);
 
-    public OrderAcceptTest(String orderId, String courierId, int expectedCode) {
-        this.orderId = orderId;
-        this.courierId = courierId;
-        this.expectedCode = expectedCode;
-    }
+    private static final ValidatableResponse orderDetails = orderClient.getOrderDetails(orderTrack);
+    private static final int defaultOrderId = extract.orderId(orderDetails);
 
     @Parameterized.Parameters(name = "order {0}, courier {1}, code {2}")
     public static Object[][] endpointParameters() {
@@ -52,8 +49,8 @@ public class OrderAcceptTest {
     }
 
     @Test
-    @DisplayName("Check possibility of creating a courier without required json values")
-    @Description("Checking with random alphabetic parameters")
+    @DisplayName("Check possibility of creating a courier")
+    @Description("Checking with random alphabetic json values")
     public void acceptOrderWithRequiredEndpointParameters() {
 
         ValidatableResponse acceptOrder = orderClient.acceptOrder(orderId, courierId);
